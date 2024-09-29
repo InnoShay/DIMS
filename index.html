@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drug Inventory & Supply Chain Tracking System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="light-mode">
+    <div id="sidebar">
+        <div class="sidebar-header">
+            <img src="synapse_innovators_logo.png" alt="Synapse Innovators Logo" id="full-logo">
+            <img src="synapse_innovators_short_logo.png" alt="Synapse Innovators Short Logo" id="short-logo">
+            <button id="sidebar-toggle"><i class="fas fa-chevron-left"></i></button>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#overview"><i class="fas fa-chart-line"></i><span class="nav-text">Overview</span></a></li>
+                <li><a href="#inventory"><i class="fas fa-pills"></i><span class="nav-text">Inventory</span></a></li>
+                <li><a href="#vendor"><i class="fas fa-truck"></i><span class="nav-text">Vendors</span></a></li>
+                <li><a href="#reports"><i class="fas fa-chart-bar"></i><span class="nav-text">Reports</span></a></li>
+                <li><a href="#tracking"><i class="fas fa-map-marker-alt"></i><span class="nav-text">Tracking</span></a></li>
+                <li><a href="#blockchain"><i class="fas fa-link"></i><span class="nav-text">Blockchain</span></a></li>
+                <li><a href="#iot"><i class="fas fa-thermometer-half"></i><span class="nav-text">IoT Monitoring</span></a></li>
+                <li><a href="#ai"><i class="fas fa-brain"></i><span class="nav-text">AI Analytics</span></a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div id="main-content">
+        <header>
+            <h1>Drug Inventory & Supply Chain Tracking System</h1>
+            <div class="header-controls">
+                <button id="theme-toggle"><i id="theme-icon" class="fas fa-sun"></i></button>
+                <button id="logout-btn">Logout</button>
+            </div>
+        </header>
+
+        <section id="overview" class="dashboard-section">
+            <h2>Overview</h2>
+            <div class="dashboard-cards">
+                <div class="card">
+                    <h3>Total Stock</h3>
+                    <p id="total-stock">0</p>
+                </div>
+                <div class="card">
+                    <h3>Low Stock Drugs</h3>
+                    <p id="low-stock-count">0</p>
+                </div>
+                <div class="card">
+                    <h3>Expired Drugs</h3>
+                    <p id="expired-drugs">0</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="inventory" class="dashboard-section">
+            <h2>Inventory Management</h2>
+            <button id="add-drug-btn" class="action-btn">Add New Drug</button>
+            <table id="inventory-table">
+                <thead>
+                    <tr>
+                        <th>Drug Name</th>
+                        <th>Stock</th>
+                        <th>Expiry Date</th>
+                        <th>Status</th>
+                        <th>Shipment Status</th>
+                        <th>Temp / Humidity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <section id="vendor" class="dashboard-section">
+            <h2>Vendor Management</h2>
+            <button id="add-vendor-btn" class="action-btn">Add New Vendor</button>
+            <table id="vendor-table">
+                <thead>
+                    <tr>
+                        <th>Vendor</th>
+                        <th>Last Order</th>
+                        <th>Order Status</th>
+                        <th>Delivery Date</th>
+                        <th>Rating</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <section id="reports" class="dashboard-section">
+            <h2>Reports & Analytics</h2>
+            <div class="chart-container">
+                <canvas id="reports-chart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="temperature-chart"></canvas>
+            </div>
+        </section>
+
+        <section id="tracking" class="dashboard-section">
+            <h2>Drug Tracking</h2>
+            <table id="tracking-table">
+                <thead>
+                    <tr>
+                        <th>Drug</th>
+                        <th>Status</th>
+                        <th>In Stock</th>
+                        <th>Shipment Status</th>
+                        <th>Last Updated</th>
+                        <th>Progress</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <section id="blockchain" class="dashboard-section">
+            <h2>Blockchain for Supply Chain Transparency</h2>
+            <div class="development-card">
+                <i class="fas fa-link fa-spin"></i>
+                <p>Blockchain integration for secure and tamper-proof drug authenticity verification is active. Click 'Verify' on any drug to check its authenticity.</p>
+            </div>
+        </section>
+
+        <section id="iot" class="dashboard-section">
+            <h2>IoT for Cold Chain Monitoring</h2>
+            <div class="development-card">
+                <i class="fas fa-thermometer-half fa-pulse"></i>
+                <p>Real-time environmental tracking with predictive maintenance alerts is now live. Temperature and humidity data are updated every 5 seconds.</p>
+            </div>
+        </section>
+
+        <section id="ai" class="dashboard-section">
+            <h2>AI-Driven Predictive Analytics</h2>
+            <div class="development-card">
+                <i class="fas fa-brain fa-fade"></i>
+                <p>Advanced AI analytics for inventory optimization and demand forecasting is running. Low stock predictions are made every minute.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Drug Modal -->
+    <div id="drug-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Add/Edit Drug</h2>
+            <form id="drug-form">
+                <input type="hidden" id="drug-id">
+                <label for="drug-name">Name:</label>
+                <input type="text" id="drug-name" required>
+                <label for="drug-stock">Stock:</label>
+                <input type="number" id="drug-stock" required>
+                <label for="drug-expiry">Expiry Date:</label>
+                <input type="date" id="drug-expiry" required>
+                <label for="drug-status">Status:</label>
+                <select id="drug-status" required>
+                    <option value="Available">Available</option>
+                    <option value="Low Stock">Low Stock</option>
+                    <option value="Out of Stock">Out of Stock</option>
+                </select>
+                <label for="drug-shipment">Shipment Status:</label>
+                <select id="drug-shipment" required>
+                    <option value="Preparing">Preparing</option>
+                    <option value="In Transit">In Transit</option>
+                    <option value="Delivered">Delivered</option>
+                </select>
+                <button type="submit" class="action-btn">Save Drug</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Vendor Modal -->
+    <div id="vendor-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Add/Edit Vendor</h2>
+            <form id="vendor-form">
+                <input type="hidden" id="vendor-id">
+                <label for="vendor-name">Name:</label>
+                <input type="text" id="vendor-name" required>
+                <label for="vendor-last-order">Last Order Date:</label>
+                <input type="date" id="vendor-last-order" required>
+                <label for="vendor-order-status">Order Status:</label>
+                <select id="vendor-order-status" required>
+                    <option value="Preparing">Preparing</option>
+                    <option value="In Transit">In Transit</option>
+                    <option value="Delivered">Delivered</option>
+                </select>
+                <label for="vendor-delivery-date">Expected Delivery Date:</label>
+                <input type="date" id="vendor-delivery-date" required>
+                <label for="vendor-rating">Rating:</label>
+                <input type="number" id="vendor-rating" min="0" max="5" step="0.1" required>
+                <button type="submit" class="action-btn">Save Vendor</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

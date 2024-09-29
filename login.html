@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synapse Innovators - Login</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --primary-color: #4e54c8;
+            --secondary-color: #8f94fb;
+            --accent-color: #ff6b6b;
+            --text-color: #333;
+            --bg-color: #f4f4f4;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-color);
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .left-panel, .right-panel {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .left-panel {
+            background: url('/api/placeholder/800/1200') center/cover no-repeat;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .overlay h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .overlay p {
+            font-size: 1.2rem;
+            max-width: 80%;
+            line-height: 1.6;
+        }
+
+        .login-container {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 400px;
+            transform: translateY(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .login-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .login-logo {
+            width: 120px;
+            margin-bottom: 2rem;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .auth-form h2 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px 15px;
+            border: none;
+            border-bottom: 2px solid #ddd;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: transparent;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-bottom-color: var(--primary-color);
+        }
+
+        .input-group label {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            color: #999;
+            font-size: 1rem;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus + label,
+        .input-group input:valid + label {
+            top: -20px;
+            font-size: 0.8rem;
+            color: var(--primary-color);
+        }
+
+        .auth-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .auth-form button:hover {
+            background-color: var(--secondary-color);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .switch-form {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .switch-form a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .switch-form a:hover {
+            color: var(--accent-color);
+        }
+
+        .social-login {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 10px;
+            color: var(--white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .google { background-color: #DB4437; }
+        .facebook { background-color: #4267B2; }
+        .twitter { background-color: #1DA1F2; }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        .floating-icon {
+            position: absolute;
+            animation: float 6s ease-in-out infinite;
+            color: rgba(255, 255, 255, 0.8);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .icon1 { top: 10%; left: 10%; font-size: 3rem; animation-delay: 0s; }
+        .icon2 { top: 20%; right: 15%; font-size: 2.5rem; animation-delay: 1s; }
+        .icon3 { bottom: 15%; left: 20%; font-size: 3.5rem; animation-delay: 2s; }
+
+        .error-message {
+            color: var(--accent-color);
+            margin-top: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .left-panel {
+                display: none;
+            }
+            .right-panel {
+                padding: 2rem;
+            }
+            .login-container {
+                padding: 2rem;
+            }
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        .auth-form {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .auth-form.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <div class="overlay">
+                <h1>Synapse Innovators</h1>
+                <p>Revolutionizing Drug Inventory & Supply Chain Management</p>
+            </div>
+            <i class="fas fa-capsules floating-icon icon1"></i>
+            <i class="fas fa-truck floating-icon icon2"></i>
+            <i class="fas fa-flask floating-icon icon3"></i>
+        </div>
+        <div class="right-panel">
+            <div class="login-container">
+                <img src="synapse_innovators_logo.png" alt="Synapse Innovators Logo" class="login-logo">
+                <div id="login-form" class="auth-form active">
+                    <h2>Welcome Back</h2>
+                    <form id="login-form-element">
+                        <div class="input-group">
+                            <input type="text" id="login-username" required>
+                            <label for="login-username">Username</label>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" id="login-password" required>
+                            <label for="login-password">Password</label>
+                        </div>
+                        <button type="submit">Login</button>
+                    </form>
+                    <div id="login-error" class="error-message"></div>
+                    <div class="switch-form">
+                        <p>Don't have an account? <a href="#" id="switch-to-signup">Sign Up</a></p>
+                    </div>
+                    <div class="social-login">
+                        <div class="social-btn google"><i class="fab fa-google"></i></div>
+                        <div class="social-btn facebook"><i class="fab fa-facebook-f"></i></div>
+                        <div class="social-btn twitter"><i class="fab fa-twitter"></i></div>
+                    </div>
+                </div>
+                <div id="signup-form" class="auth-form">
+                    <h2>Create Account</h2>
+                    <form id="signup-form-element">
+                        <div class="input-group">
+                            <input type="text" id="signup-username" required>
+                            <label for="signup-username">Username</label>
+                        </div>
+                        <div class="input-group">
+                            <input type="email" id="signup-email" required>
+                            <label for="signup-email">Email</label>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" id="signup-password" required>
+                            <label for="signup-password">Password</label>
+                        </div>
+                        <button type="submit">Sign Up</button>
+                    </form>
+                    <div id="signup-error" class="error-message"></div>
+                    <div class="switch-form">
+                        <p>Already have an account? <a href="#" id="switch-to-login">Login</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Function to show error message
+        function showError(formId, message) {
+            document.getElementById(formId + '-error').textContent = message;
+        }
+
+        // Function to clear error message
+        function clearError(formId) {
+            document.getElementById(formId + '-error').textContent = '';
+        }
+
+        // Login form submission
+        document.getElementById('login-form-element').addEventListener('submit', function(e) {
+            e.preventDefault();
+            clearError('login');
+            
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+
+            // Here we're using the login function from app.js
+            if (login(username, password)) {
+                // Redirect to dashboard on successful login
+                window.location.href = 'index.html';
+            } else {
+                showError('login', 'Invalid username or password.');
+            }
+        });
+
+        // Signup form submission
+        document.getElementById('signup-form-element').addEventListener('submit', function(e) {
+            e.preventDefault();
+            clearError('signup');
+            
+            const username = document.getElementById('signup-username').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+
+            // Here we're using the signUp function from app.js
+            if (signUp(username, password)) {
+                showError('signup', 'Sign up successful! You can now log in.');
+                // Switch to login form
+                switchForm('login');
+            } else {
+                showError('signup', 'Username already exists. Please choose a different one.');
+            }
+        });
+
+        // Function to switch between login and signup forms
+        function switchForm(formId) {
+            document.getElementById('login-form').classList.toggle('active', formId === 'login');
+            document.getElementById('signup-form').classList.toggle('active', formId === 'signup');
+        }
+
+        // Switch between login and signup forms
+        document.getElementById('switch-to-signup').addEventListener('click', function(e) {
+            e.preventDefault();
+            clearError('login');
+            switchForm('signup');
+        });
+
+        document.getElementById('switch-to-login').addEventListener('click', function(e) {
+            e.preventDefault();
+            clearError('signup');
+            switchForm('login');
+        });
+
+        // Social login buttons (for demonstration, they will just show an alert)
+        document.querySelectorAll('.social-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                alert('Social login is not implemented in this demo.');
+            });
+        });
+    </script>
+    <script src="app.js"></script>
+</body>
+</html>
